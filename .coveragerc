@@ -1,0 +1,6 @@
+[report]
+sort = Cover
+[run]
+omit =
+    bin/tests/*
+    templates/sam/*/tests/*

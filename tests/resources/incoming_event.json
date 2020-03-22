@@ -1,0 +1,69 @@
+{
+  "version": "0",
+  "id": "3469fd4b-b00a-ede7-937b-b4da1faf5b81",
+  "detail-type": "AWS API Call via CloudTrail",
+  "source": "aws.ec2",
+  "account": "180048912455",
+  "time": "2020-02-05T23:04:14Z",
+  "region": "ap-southeast-2",
+  "resources": [],
+  "detail": {
+    "eventVersion": "1.05",
+    "userIdentity": {
+      "type": "AssumedRole",
+      "principalId": "AROAST26AMBD6UBEQ7CGZ:jan.groth@versent.com.au",
+      "arn": "arn:aws:sts::180048912455:assumed-role/OrganizationAccountAccessRole/jan.groth@versent.com.au",
+      "accountId": "180048912455",
+      "accessKeyId": "ASIAST26AMBD7YMMWWV7",
+      "sessionContext": {
+        "sessionIssuer": {
+          "type": "Role",
+          "principalId": "AROAST26AMBD6UBEQ7CGZ",
+          "arn": "arn:aws:iam::180048912455:role/OrganizationAccountAccessRole",
+          "accountId": "180048912455",
+          "userName": "OrganizationAccountAccessRole"
+        },
+        "webIdFederationData": {},
+        "attributes": {
+          "mfaAuthenticated": "true",
+          "creationDate": "2020-02-05T22:13:58Z"
+        }
+      }
+    },
+    "eventTime": "2020-02-05T23:04:14Z",
+    "eventSource": "ec2.amazonaws.com",
+    "eventName": "AuthorizeSecurityGroupIngress",
+    "awsRegion": "ap-southeast-2",
+    "sourceIPAddress": "203.111.26.198",
+    "userAgent": "console.ec2.amazonaws.com",
+    "requestParameters": {
+      "groupId": "sg-0414b25decc887df7",
+      "ipPermissions": {
+        "items": [
+          {
+            "ipProtocol": "tcp",
+            "fromPort": 22,
+            "toPort": 22,
+            "groups": {},
+            "ipRanges": {
+              "items": [
+                {
+                  "cidrIp": "1.2.3.4/32"
+                }
+              ]
+            },
+            "ipv6Ranges": {},
+            "prefixListIds": {}
+          }
+        ]
+      }
+    },
+    "responseElements": {
+      "requestId": "eda1e139-eba3-4596-9413-686de15cf881",
+      "_return": True
+    },
+    "requestID": "eda1e139-eba3-4596-9413-686de15cf881",
+    "eventID": "bc9e3252-6466-4720-955e-e342e782d405",
+    "eventType": "AwsApiCall"
+  }
+}

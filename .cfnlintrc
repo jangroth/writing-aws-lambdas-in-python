@@ -1,0 +1,5 @@
+---
+templates:
+  - ./**/*.sam.yaml
+ignore_checks:
+  - W3002

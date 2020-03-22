@@ -1,0 +1,76 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  default sg ingress egress remediation
+  [default sg] -> eventbridge -> eventsrule -> lambda -> revoke egress/ingress on sg
+
+Resources:
+
+  ############ Event ############
+
+  RevokeDefaultSgPattern:
+    Type: AWS::Events::Rule
+    Properties:
+      Description: Revokes Default Security Group on EC2 Events
+      EventPattern:
+        detail-type:
+          - "AWS API Call via CloudTrail"
+        detail:
+          eventSource:
+            - ec2.amazonaws.com
+          eventName:
+            - AuthorizeSecurityGroupIngress
+            - AuthorizeSecurityGroupEgress
+      Targets:
+        - Id: RevokeDefaultSGLambda
+          Arn: !GetAtt RevokeDefaultSgLambda.Arn
+
+  RevokeDefaultSgLambdaPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !GetAtt RevokeDefaultSgLambda.Arn
+      Action: lambda:InvokeFunction
+      Principal: events.amazonaws.com
+
+  ############ Lambda ############
+
+  RevokeDefaultSgLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./src
+      Handler: revokedefaultsg.app.handler
+      Runtime: python3.7
+      Role: !GetAtt RevokeDefaultSgLambdaRole.Arn
+      Timeout: 900
+      Environment:
+        Variables:
+          LOGGING: DEBUG
+
+  RevokeDefaultSgLambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Action:
+              - sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+      Policies:
+        - PolicyName: revoke-sg-ingress-egress
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - ec2:DescribeVpcs
+                  - ec2:DescribeSecurityGroups
+                  - ec2:RevokeSecurityGroupIngress
+                  - ec2:RevokeSecurityGroupEgress
+                  - ec2:CreateTags
+                Resource: "*"

@@ -1,0 +1,7 @@
+[flake8]
+ignore = E501,E402,E127
+exclude =
+    .aws-sam
+    ./templates/sam/VPCBuilder/*
+    ./templates/sam/TGWBuilder/*
+    ./templates/sam/cr-saml-provider/*

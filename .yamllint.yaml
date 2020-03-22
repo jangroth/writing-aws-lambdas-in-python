@@ -1,0 +1,13 @@
+---
+extends: default
+
+rules:
+  line-length:
+    max: 150
+    level: warning
+
+ignore: |
+    templates/sam/VPCBuilder
+    templates/sam/TGWBuilder
+    __generated*.yaml
+    .aws-sam
