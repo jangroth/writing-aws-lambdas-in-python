@@ -5,6 +5,11 @@ Description: >
   default sg ingress egress remediation
   [default sg] -> eventbridge -> eventsrule -> lambda -> revoke egress/ingress on sg
 
+Parameters:
+  MinimumLogLevel:
+    Type: String
+    Default: DEBUG
+
 Resources:
 
   ############ Event ############
@@ -45,7 +50,7 @@ Resources:
       Timeout: 900
       Environment:
         Variables:
-          LOGGING: DEBUG
+          LOGGING: !Ref MinimumLogLevel
 
   RevokeDefaultSgLambdaRole:
     Type: AWS::IAM::Role

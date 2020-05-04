@@ -58,6 +58,7 @@ class RevokeDefaultSg:
             self.logger.debug('Revoking egress rules')
         if should_tag:
             security_group.create_tags(Tags=[{'Key': 'auto:remediation-reason', 'Value': 'AWS CIS Benchmark 4.4 - Default SG\'s rules are automatically revoked'}])
+            self.logger.debug('Adding tag.')
         else:
             self.logger.debug('No ingress/egress rules found to revoke')
 

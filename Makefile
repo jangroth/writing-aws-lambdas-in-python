@@ -16,7 +16,7 @@ pipenv: ## Install pipenv and dependencies
 	pip install pipenv
 	pipenv install --dev
 
-create-artifact-bucket:
+create-artifact-bucket:  ## Create bucket to upload stack to
 	aws s3 mb s3://${ARTIFACT_BUCKET}
 
 test: ## Run linters & tests
@@ -42,7 +42,7 @@ $(OUTPUT_TEMPLATE_FILE): $(INPUT_TEMPLATE) .aws-sam/build/template.yaml
 		--debug
 	@echo '*** done packaging ***'
 
-deploy: $(OUTPUT_TEMPLATE_FILE) ## Deploys to AWS
+deploy: $(OUTPUT_TEMPLATE_FILE) ## Deploy stack to AWS
 	SAM_CLI_TELEMETRY=0 \
 	sam deploy \
 		--template-file $(OUTPUT_TEMPLATE_FILE) \

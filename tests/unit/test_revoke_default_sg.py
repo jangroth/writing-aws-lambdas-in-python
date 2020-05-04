@@ -83,12 +83,12 @@ def test_should_extract_sg_id_from_good_event(obj, good_event):
     assert obj._extract_sg_id(good_event) == 'sg-123'
 
 
-def test_should_raise_exception_on_unknown_event(obj):
+def test_should_raise_exception_if_unknown_event(obj):
     with pytest.raises(UnknownEventException):
         obj._extract_sg_id({'foo': 'bar'})
 
 
-def test_should_raise_exception_on_wrong_event(obj, bad_event):
+def test_should_raise_exception_if_wrong_event(obj, bad_event):
     with pytest.raises(UnknownEventException):
         obj._extract_sg_id(bad_event)
 
