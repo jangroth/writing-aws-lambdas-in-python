@@ -5,8 +5,9 @@ verify_ssl = true
 
 [packages]
 aws-sam-cli = "*"
+
+[dev-packages]
 cfn-lint = "*"
-crhelper = "*"
 flake8 = "*"
 pytest = "*"
 pytest-cov = "*"

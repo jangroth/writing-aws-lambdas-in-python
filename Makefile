@@ -32,7 +32,7 @@ test: ## Run linters & tests
 		--template-file $(INPUT_TEMPLATE_FILE) \
 		--manifest $(MANIFEST_FILE) \
 		--debug
-	@echo '*** done building ***'
+	@echo '*** done SAM building ***'
 
 $(OUTPUT_TEMPLATE_FILE): $(INPUT_TEMPLATE) .aws-sam/build/template.yaml
 	SAM_CLI_TELEMETRY=0 \
@@ -40,7 +40,7 @@ $(OUTPUT_TEMPLATE_FILE): $(INPUT_TEMPLATE) .aws-sam/build/template.yaml
 		--s3-bucket $(ARTIFACT_BUCKET) \
 		--output-template-file "$(OUTPUT_TEMPLATE_FILE)" \
 		--debug
-	@echo '*** done packaging ***'
+	@echo '*** done SAM packaging ***'
 
 deploy: $(OUTPUT_TEMPLATE_FILE) ## Deploy stack to AWS
 	SAM_CLI_TELEMETRY=0 \
@@ -50,4 +50,4 @@ deploy: $(OUTPUT_TEMPLATE_FILE) ## Deploy stack to AWS
 		--s3-bucket $(ARTIFACT_BUCKET) \
 		--capabilities "CAPABILITY_IAM" \
 		--no-fail-on-empty-changeset
-	@echo '*** done deploying ***'
+	@echo '*** done SAM deploying ***'
