@@ -19,12 +19,15 @@ pipenv: ## Install pipenv and dependencies
 create-artifact-bucket:  ## Create bucket to upload stack to
 	aws s3 mb s3://${ARTIFACT_BUCKET}
 
-test: ## Run linters & tests
+check: ## Run linters
 	flake8
 	yamllint -f parsable .
 	cfn-lint -f parseable
-	PYTHONPATH=./src pytest --cov=src --cov-report term-missing
 	@echo '*** all checks passing ***'
+
+test: check ## Run tests
+	PYTHONPATH=./src pytest --cov=src --cov-report term-missing
+	@echo '*** all tests passing ***'
 
 .aws-sam/build/template.yaml: $(INPUT_TEMPLATE_FILE) $(SOURCE_FILES)  ## sam-build target and dependencies
 	SAM_CLI_TELEMETRY=0 \

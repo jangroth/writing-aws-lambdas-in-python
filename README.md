@@ -1,6 +1,8 @@
-# An opinionated approach to writing AWS Lambdas in Python
+# Writing and testing AWS Lambdas in Python
 
-Example code for TODO.
+Example code for 
+* [Writing AWS Lambdas in Python - 10 pragmatic thoughts](https://medium.com/@jan.groth.de/writing-aws-lambdas-in-python-10-pragmatic-thoughts-97659c2716ed)
+* [Testing AWS Lambdas in Python - 10 pragmatic thoughts](https://medium.com/@jan.groth.de/testing-aws-lambdas-in-python-10-pragmatic-thoughts-6a74ca8bb0c1)
 
 ![Flow Diagram](media/example_flow.png)
 
