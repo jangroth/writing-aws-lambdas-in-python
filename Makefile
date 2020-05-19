@@ -45,7 +45,7 @@ $(OUTPUT_TEMPLATE_FILE): $(INPUT_TEMPLATE) .aws-sam/build/template.yaml
 		--debug
 	@echo '*** done SAM packaging ***'
 
-deploy: $(OUTPUT_TEMPLATE_FILE) ## Deploy stack to AWS
+deploy: test $(OUTPUT_TEMPLATE_FILE) ## Deploy stack to AWS
 	SAM_CLI_TELEMETRY=0 \
 	sam deploy \
 		--template-file $(OUTPUT_TEMPLATE_FILE) \
