@@ -6,8 +6,8 @@ from pytest import fixture
 
 from revokedefaultsg.app import RevokeDefaultSg, UnknownEventException
 
-NOT_A_DEFAULT_GROUP = {"GroupName": "not default"}
 DEFAULT_GROUP = {"GroupName": "default"}
+NOT_A_DEFAULT_GROUP = {"GroupName": "not default"}
 TEST_SG = 'sg-123'
 
 
@@ -82,16 +82,6 @@ def test_should_extract_sg_id_from_good_event(obj, good_event):
     assert obj._extract_sg_id(good_event) == TEST_SG
 
 
-def test_should_raise_exception_if_unknown_event(obj, unknown_event):
-    with pytest.raises(UnknownEventException):
-        obj._extract_sg_id(unknown_event)
-
-
-def test_should_raise_exception_if_wrong_event(obj, bad_event):
-    with pytest.raises(UnknownEventException):
-        obj._extract_sg_id(bad_event)
-
-
 def test_should_find_default_sg(obj):
     obj.ec2_client.describe_security_groups.return_value = {"SecurityGroups": [DEFAULT_GROUP]}
 
@@ -135,3 +125,13 @@ def test_should_not_tag_if_nothing_was_revoked(obj):
     obj._revoke_and_tag(TEST_SG)
 
     mock_security_group.create_tags.assert_not_called()
+
+
+def test_should_raise_exception_if_unknown_event(obj, unknown_event):
+    with pytest.raises(UnknownEventException):
+        obj._extract_sg_id(unknown_event)
+
+
+def test_should_raise_exception_if_bad_event(obj, bad_event):
+    with pytest.raises(UnknownEventException):
+        obj._extract_sg_id(bad_event)

@@ -26,7 +26,7 @@ check: ## Run linters
 	@echo '*** all checks passing ***'
 
 test: check ## Run tests
-	PYTHONPATH=./src pytest --cov=src --cov-report term-missing
+	PYTHONPATH=./src pytest --cov=src --cov-branch --cov-report term-missing
 	@echo '*** all tests passing ***'
 
 .aws-sam/build/template.yaml: $(INPUT_TEMPLATE_FILE) $(SOURCE_FILES)  ## sam-build target and dependencies
