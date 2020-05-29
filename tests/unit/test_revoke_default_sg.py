@@ -8,7 +8,7 @@ from revokedefaultsg.app import RevokeDefaultSg, UnknownEventException
 
 DEFAULT_GROUP = {"GroupName": "default"}
 NOT_A_DEFAULT_GROUP = {"GroupName": "not default"}
-TEST_SG = 'sg-123'
+TEST_SG = "sg-123"
 
 
 @fixture
@@ -22,10 +22,8 @@ def good_event():
             "eventName": "AuthorizeSecurityGroupIngress",
             "eventID": "bc9e3252-6466-4720-955e-e342e782d405",
             "eventType": "AwsApiCall",
-            "requestParameters": {
-                "groupId": "sg-123"
-            }
-        }
+            "requestParameters": {"groupId": "sg-123"},
+        },
     }
 
 
@@ -39,14 +37,14 @@ def bad_event():
             "eventSource": "barrista.arround.the.corner",
             "eventName": "AuthorizeSecurityGroupIngress",
             "eventID": "bc9e3252-6466-4720-955e-e342e782d405",
-            "eventType": "DrinkMoreCoffee"
-        }
+            "eventType": "DrinkMoreCoffee",
+        },
     }
 
 
 @fixture
 def unknown_event():
-    return {'foo': 'bar'}
+    return {"foo": "bar"}
 
 
 @pytest.fixture()
@@ -83,20 +81,24 @@ def test_should_extract_sg_id_from_good_event(obj, good_event):
 
 
 def test_should_find_default_sg(obj):
-    obj.ec2_client.describe_security_groups.return_value = {"SecurityGroups": [DEFAULT_GROUP]}
+    obj.ec2_client.describe_security_groups.return_value = {
+        "SecurityGroups": [DEFAULT_GROUP]
+    }
 
     assert obj._is_default_sg(TEST_SG)
 
 
 def test_should_find_non_default_sg(obj):
-    obj.ec2_client.describe_security_groups.return_value = {"SecurityGroups": [NOT_A_DEFAULT_GROUP]}
+    obj.ec2_client.describe_security_groups.return_value = {
+        "SecurityGroups": [NOT_A_DEFAULT_GROUP]
+    }
 
     assert not obj._is_default_sg(TEST_SG)
 
 
 def test_should_tag_if_ingress_was_revoked(obj):
     mock_security_group = MagicMock()
-    mock_security_group.ip_permissions = 'ingress'
+    mock_security_group.ip_permissions = "ingress"
     mock_security_group.ip_permissions_egress = None
     obj.ec2_resource.SecurityGroup.return_value = mock_security_group
 
@@ -108,7 +110,7 @@ def test_should_tag_if_ingress_was_revoked(obj):
 def test_should_tag_if_egress_was_revoked(obj):
     mock_security_group = MagicMock()
     mock_security_group.ip_permissions = None
-    mock_security_group.ip_permissions_egress = 'egress'
+    mock_security_group.ip_permissions_egress = "egress"
     obj.ec2_resource.SecurityGroup.return_value = mock_security_group
 
     obj._revoke_and_tag(TEST_SG)
