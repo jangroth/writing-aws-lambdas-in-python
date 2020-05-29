@@ -1,44 +1,62 @@
 # Writing and testing AWS Lambdas in Python
 
 Example code for 
-* [Writing AWS Lambdas in Python - 10 pragmatic thoughts](https://medium.com/@jan.groth.de/writing-aws-lambdas-in-python-10-pragmatic-thoughts-97659c2716ed)
-* [Testing AWS Lambdas in Python - 10 pragmatic thoughts](https://medium.com/@jan.groth.de/testing-aws-lambdas-in-python-10-pragmatic-thoughts-6a74ca8bb0c1)
+* [10 Recommendations for writing pragmatic AWS Lambdas in Python](https://medium.com/@jan.groth.de/10-recommendations-for-writing-pragmatic-aws-lambdas-in-python-5f4b038caafe)
 
 ![Flow Diagram](media/example_flow.png)
 
 ## How to deploy
 
 Assumes:
-* Understanding of how to build and run AWS SAM applications
-* AWS default profile configured or `AWS_PROFILE` set
+* General understanding of how to build and run AWS SAM applications
 
 Prerequisites:
 * Python 3.7
-* pip
-* make
-* aws-cli
+* `pip3` (or `pip` aliased to `pip3`)
+* `make`
+* `aws-cli`
 
 Tested on:
 * Linux
 * MacOS 
 
-### Install dependencies
+### Setup (via Python pipenv)
 
+* Install dependencies:
+```shell script
+make install-dependencies
+```
+* Note:
+    * Depending on your local setup you might want to change `pip3` to `pip`. This makefile assumes the Python3 version. 
+    * Running `make install-dependencies` is a one-off task, feel free to install the required Python packages with your preferred tool)
+
+* Change into `pipenv`-shell:
+```shell script
+pipenv shell
+```
+
+* Configure AWS profile:
+```shell script
+export AWS_PROFILE=[your profile name]
+```
+(or use the *default* profile if configured) 
+
+* Create artifact bucket:
+    * Edit `ARTIFACT_BUCKET` in `Makefile` to become globally unique 
+    * E.g. `default-sg-remediation-artifacts-[your account id]`
 ```shell script
 make create-artifact-bucket
 ```
 
-### Create artifact bucket
-
-Edit `ARTIFACT_BUCKET` in `Makefile` to become globally unique. E.g. `default-sg-remediation-artifacts-[your account id]` 
+### Deploy application
 
 ```shell script
-make create-artifact-bucket
-```
-
-### Run tests and deploy
-
-```shell script
-make test
 make deploy
 ```
+
+## How to test
+
+* Change _egress_ or _ingress_ on the default security group
+    * Lambda gets invoked
+    * egress/ingress get revoked
+    * security group gets tagged
