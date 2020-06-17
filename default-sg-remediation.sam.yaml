@@ -12,34 +12,6 @@ Parameters:
 
 Resources:
 
-  ############ Event ############
-
-  RevokeDefaultSgPattern:
-    Type: AWS::Events::Rule
-    Properties:
-      Description: Revokes default security group on EC2 events
-      EventPattern:
-        detail-type:
-          - "AWS API Call via CloudTrail"
-        detail:
-          eventSource:
-            - ec2.amazonaws.com
-          eventName:
-            - AuthorizeSecurityGroupIngress
-            - AuthorizeSecurityGroupEgress
-      Targets:
-        - Id: RevokeDefaultSGLambda
-          Arn: !GetAtt RevokeDefaultSgLambda.Arn
-
-  RevokeDefaultSgLambdaPermission:
-    Type: AWS::Lambda::Permission
-    Properties:
-      FunctionName: !GetAtt RevokeDefaultSgLambda.Arn
-      Action: lambda:InvokeFunction
-      Principal: events.amazonaws.com
-
-  ############ Lambda ############
-
   RevokeDefaultSgLambda:
     Type: AWS::Serverless::Function
     Properties:
@@ -51,6 +23,19 @@ Resources:
       Environment:
         Variables:
           LOGGING: !Ref minimumLogLevel
+      Events:
+        RevokeDefaultSgPattern:
+          Type: EventBridgeRule
+          Properties:
+            Pattern:
+              detail-type:
+                - "AWS API Call via CloudTrail"
+              detail:
+                eventSource:
+                  - ec2.amazonaws.com
+                eventName:
+                  - AuthorizeSecurityGroupIngress
+                  - AuthorizeSecurityGroupEgress
 
   RevokeDefaultSgLambdaRole:
     Type: AWS::IAM::Role
