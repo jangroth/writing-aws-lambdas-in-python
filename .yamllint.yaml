@@ -7,7 +7,4 @@ rules:
     level: warning
 
 ignore: |
-    templates/sam/VPCBuilder
-    templates/sam/TGWBuilder
-    __generated*.yaml
     .aws-sam
