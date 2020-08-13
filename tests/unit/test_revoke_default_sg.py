@@ -14,13 +14,13 @@ TEST_SG = "sg-123"
 @fixture
 def good_event():
     return {
-        "id": "3469fd4b-b00a-ede7-937b-b4da1faf5b81",
+        "id": "12345678-b00a-ede7-937b-b4da1faf5b81",
         "detail": {
             "eventVersion": "1.05",
             "eventTime": "2020-02-05T23:04:14Z",
             "eventSource": "ec2.amazonaws.com",
             "eventName": "AuthorizeSecurityGroupIngress",
-            "eventID": "bc9e3252-6466-4720-955e-e342e782d405",
+            "eventID": "12345678-6466-4720-955e-e342e782d405",
             "eventType": "AwsApiCall",
             "requestParameters": {"groupId": "sg-123"},
         },
@@ -30,13 +30,13 @@ def good_event():
 @fixture
 def bad_event():
     return {
-        "id": "3469fd4b-b00a-ede7-937b-b4da1faf5b81",
+        "id": "12345678-b00a-ede7-937b-b4da1faf5b81",
         "detail": {
             "eventVersion": "1.05",
             "eventTime": "2020-02-05T23:04:14Z",
             "eventSource": "barrista.arround.the.corner",
             "eventName": "AuthorizeSecurityGroupIngress",
-            "eventID": "bc9e3252-6466-4720-955e-e342e782d405",
+            "eventID": "12345678-6466-4720-955e-e342e782d405",
             "eventType": "DrinkMoreCoffee",
         },
     }
@@ -47,7 +47,7 @@ def unknown_event():
     return {"foo": "bar"}
 
 
-@pytest.fixture()
+@fixture()
 def obj():
     obj = RevokeDefaultSg.__new__(RevokeDefaultSg)
     obj.logger = MagicMock()

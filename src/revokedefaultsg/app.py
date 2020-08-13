@@ -75,10 +75,10 @@ class RevokeDefaultSg:
     def process_event(self, event):
         sg_id = self._extract_sg_id(event)
         if self._is_default_sg(sg_id):
-            self.logger.info(f"Revoking ingress/egress on default SG {sg_id}.")
+            self.logger.info(f"Revoking ingress/egress on default SG {sg_id}...")
             self._revoke_and_tag(sg_id)
         else:
-            self.logger.info(f"SG {sg_id} is not a default SG, nothing to do.")
+            self.logger.info(f"SG {sg_id} is not a default SG, nothing to do...")
         return "SUCCESS"
 
 

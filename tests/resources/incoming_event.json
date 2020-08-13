@@ -1,9 +1,9 @@
 {
   "version": "0",
-  "id": "3469fd4b-b00a-ede7-937b-b4da1faf5b81",
+  "id": "12345678-b00a-ede7-937b-b4da1faf5b81",
   "detail-type": "AWS API Call via CloudTrail",
   "source": "aws.ec2",
-  "account": "180048912455",
+  "account": "123456789012",
   "time": "2020-02-05T23:04:14Z",
   "region": "ap-southeast-2",
   "resources": [],
@@ -11,16 +11,16 @@
     "eventVersion": "1.05",
     "userIdentity": {
       "type": "AssumedRole",
-      "principalId": "AROAST26AMBD6UBEQ7CGZ:jan.groth@versent.com.au",
-      "arn": "arn:aws:sts::180048912455:assumed-role/OrganizationAccountAccessRole/jan.groth@versent.com.au",
-      "accountId": "180048912455",
-      "accessKeyId": "ASIAST26AMBD7YMMWWV7",
+      "principalId": "AROAST26AMBD6UBEQ7CGZ:me@mail.com",
+      "arn": "arn:aws:sts::123456789012:assumed-role/OrganizationAccountAccessRole/me@mail.com",
+      "accountId": "123456789012",
+      "accessKeyId": "ASIAST26AMBDWWMMWWMM",
       "sessionContext": {
         "sessionIssuer": {
           "type": "Role",
-          "principalId": "AROAST26AMBD6UBEQ7CGZ",
-          "arn": "arn:aws:iam::180048912455:role/OrganizationAccountAccessRole",
-          "accountId": "180048912455",
+          "principalId": "AROAST26AMBD6UBEQ7777",
+          "arn": "arn:aws:iam::123456789012:role/OrganizationAccountAccessRole",
+          "accountId": "123456789012",
           "userName": "OrganizationAccountAccessRole"
         },
         "webIdFederationData": {},
@@ -34,7 +34,7 @@
     "eventSource": "ec2.amazonaws.com",
     "eventName": "AuthorizeSecurityGroupIngress",
     "awsRegion": "ap-southeast-2",
-    "sourceIPAddress": "203.111.26.198",
+    "sourceIPAddress": "203.123.123.123",
     "userAgent": "console.ec2.amazonaws.com",
     "requestParameters": {
       "groupId": "sg-0414b25decc887df7",
@@ -59,11 +59,11 @@
       }
     },
     "responseElements": {
-      "requestId": "eda1e139-eba3-4596-9413-686de15cf881",
-      "_return": True
+      "requestId": "12345678-eba3-4596-9413-686de15cf881",
+      "_return": true
     },
-    "requestID": "eda1e139-eba3-4596-9413-686de15cf881",
-    "eventID": "bc9e3252-6466-4720-955e-e342e782d405",
+    "requestID": "12345678-eba3-4596-9413-686de15cf881",
+    "eventID": "12345678-6466-4720-955e-e342e782d405",
     "eventType": "AwsApiCall"
   }
 }
